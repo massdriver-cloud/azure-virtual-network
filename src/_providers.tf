@@ -17,7 +17,6 @@ provider "azurerm" {
     resource_group {
       prevent_deletion_if_contains_resources = false
     }
-
   }
 
   client_id       = var.azure_service_principal.data.client_id
