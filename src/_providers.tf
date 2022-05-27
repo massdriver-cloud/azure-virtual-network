@@ -13,10 +13,16 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = true
+    }
+
+  }
 
   client_id       = var.azure_service_principal.data.client_id
   tenant_id       = var.azure_service_principal.data.tenant_id
   client_secret   = var.azure_service_principal.data.client_secret
   subscription_id = var.azure_service_principal.data.subscription_id
 }
+
