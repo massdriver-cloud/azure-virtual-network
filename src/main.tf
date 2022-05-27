@@ -1,11 +1,5 @@
-locals {
-  max_length                       = 64
-  resource_group_naming_convention = join("-", flatten(slice(split("-", var.md_metadata.name_prefix), 0, 2)))
-  resource_group_name              = substr(local.resource_group_naming_convention, 0, local.max_length)
-}
-
 resource "azurerm_resource_group" "main" {
-  name     = local.resource_group_name
+  name     = var.md_metadata.name_prefix
   location = var.azure_region
 }
 
