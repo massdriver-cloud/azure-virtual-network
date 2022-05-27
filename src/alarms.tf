@@ -1,6 +1,6 @@
 resource "azurerm_monitor_action_group" "main" {
-  name                = "${local.resource_group_name}-alarms"
-  short_name          = "Massdriver"
+  name                = "${var.md_metadata.name_prefix}-alarms"
+  short_name          = "Massdriver Alarms"
   resource_group_name = azurerm_resource_group.main.name
 
   webhook_receiver {
