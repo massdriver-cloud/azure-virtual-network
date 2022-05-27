@@ -1,8 +1,3 @@
-module "region_converter" {
-  source         = "../../../provisioners/terraform/modules/azure-region-converter"
-  machine_region = azurerm_virtual_network.main.location
-}
-
 resource "massdriver_artifact" "vnet" {
   field                = "vnet"
   provider_resource_id = azurerm_virtual_network.main.id
@@ -23,7 +18,7 @@ resource "massdriver_artifact" "vnet" {
       }
       specs = {
         azure = {
-          region = module.region_converter.human_region
+          region = azurerm_virtual_network.main.location
         }
       }
     }
