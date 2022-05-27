@@ -1,0 +1,57 @@
+schema: draft-07
+name: azure-virtual-network
+description: 'Massdriver Virtual Network for Azure, includes best practice Azure reference architecture for Virtual Networks (VNETs) and subnets.'
+ref: github.com/massdriver-cloud/massdriver-bundles
+access: private
+type: bundle
+
+steps:
+  - path: src
+    provisioner: terraform
+
+params:
+  examples:
+    - __name: Small Network (4K IPs)
+      cidr: '10.0.0.0/20'
+    - __name: Large Network (65K IPs)
+      cidr: '10.0.0.0/16'
+    - __name: Massive Network (16M IPs)
+      cidr: '10.0.0.0/8'
+  required:
+    - azure_region
+    - cidr
+  properties:
+    azure_region:
+      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/azure-region.json
+    cidr:
+      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/cidr.json
+      title: 'Virtual Network CIDR'
+      description: Enter a CIDR IP address range to use for the size of your virtual network.
+
+connections:
+  required:
+    - azure_service_principal
+  properties:
+    azure_service_principal:
+      $ref: massdriver/azure-service-principal
+
+artifacts:
+  required:
+    - vnet
+  properties:
+    vnet:
+      $ref: massdriver/azure-virtual-network
+
+# schema-ui.json
+# List of form customizations for params-schema
+ui:
+  ui:order:
+    - '*'
+  ## set top level ui:wiget
+  # secret_key:
+  #    ui:widget: "password"
+  ## Set key in an array of objects
+  # secrets:
+  #   items:
+  #     mdKeyId:
+  #       ui:widget: "hidden"
