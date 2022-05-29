@@ -7,9 +7,10 @@ resource "massdriver_artifact" "vnet" {
     {
       data = {
         infrastructure = {
-          vnet_id   = azurerm_virtual_network.main.id
-          cidr      = var.cidr
-          subnet_id = azurerm_subnet.main.id
+          vnet_id        = azurerm_virtual_network.main.id
+          cidr           = var.cidr
+          resource_group = azurerm_resource_group.main.name
+          subnet_id      = azurerm_subnet.main.id
         }
         observability = {
           alarm_monitor_action_group_ari = azurerm_monitor_action_group.main.id
