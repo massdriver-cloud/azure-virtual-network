@@ -6,7 +6,7 @@ resource "azurerm_subnet" "postgresql_flexible" {
   count                = local.enable_postgresql_flexible_subnet ? 1 : 0
   name                 = "postgresql-flexible"
   resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = var.md_metadata.name_prefix
+  virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = [local.postgresql_flexible_subnet_cidr]
   service_endpoints    = ["Microsoft.Storage"]
   delegation {
