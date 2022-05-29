@@ -12,12 +12,12 @@ resource "massdriver_artifact" "vnet" {
           default_subnet_id = azurerm_subnet.main.id
           delegated_subnets = {
             "Microsoft.DBforPostgreSQL/flexibleServers" = {
-              subnet_id = azurerm_subnet.postgresql_flexible.id
-              private_dns_zone_id = azurerm_private_dns_zone.postgresql_flexible.id
+              subnet_id           = azurerm_subnet.postgresql_flexible.0.id
+              private_dns_zone_id = azurerm_private_dns_zone.postgresql_flexible.0.id
             }
             "Microsoft.DBforMySQL/flexibleServers" = {
-              subnet_id = azurerm_subnet.mysql_flexible.id
-              private_dns_zone_id = azurerm_private_dns_zone.mysql_flexible.id
+              subnet_id           = azurerm_subnet.mysql_flexible.0.id
+              private_dns_zone_id = azurerm_private_dns_zone.mysql_flexible.0.id
             }
           }
         }

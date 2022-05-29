@@ -30,6 +30,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgresql_flexible" {
   count                 = local.enable_postgresql_flexible_subnet ? 1 : 0
   name                  = var.md_metadata.name_prefix
   resource_group_name   = azurerm_resource_group.main.name
-  private_dns_zone_name = azurerm_private_dns_zone.postgresql_flexible.name
+  private_dns_zone_name = azurerm_private_dns_zone.postgresql_flexible.0.name
   virtual_network_id    = azurerm_virtual_network.main.id
 }
