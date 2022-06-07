@@ -11,9 +11,6 @@ resource "massdriver_artifact" "vnet" {
           cidr              = var.cidr
           default_subnet_id = azurerm_subnet.main.id
         }
-        observability = {
-          alarm_monitor_action_group_ari = azurerm_monitor_action_group.main.id
-        }
       }
       specs = {
         azure = {
