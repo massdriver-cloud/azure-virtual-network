@@ -21,9 +21,6 @@ resource "massdriver_artifact" "vnet" {
             }
           }
         }
-        observability = {
-          alarm_monitor_action_group_ari = azurerm_monitor_action_group.main.id
-        }
       }
       specs = {
         azure = {
