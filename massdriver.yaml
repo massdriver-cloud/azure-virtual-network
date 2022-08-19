@@ -5,10 +5,6 @@ ref: github.com/massdriver-cloud/azure-virtual-network
 access: "public"
 type: bundle
 
-steps:
-  - path: src
-    provisioner: terraform
-
 params:
   examples:
     - __name: Small Network (4K IPs)
