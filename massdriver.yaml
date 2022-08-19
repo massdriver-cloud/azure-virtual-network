@@ -46,16 +46,8 @@ artifacts:
     vnet:
       $ref: massdriver/azure-virtual-network
 
-# schema-ui.json
-# List of form customizations for params-schema
 ui:
   ui:order:
+    - azure_region
+    - cidr
     - "*"
-  ## set top level ui:wiget
-  # secret_key:
-  #    ui:widget: "password"
-  ## Set key in an array of objects
-  # secrets:
-  #   items:
-  #     mdKeyId:
-  #       ui:widget: "hidden"
