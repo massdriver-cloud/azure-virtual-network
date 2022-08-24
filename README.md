@@ -47,8 +47,30 @@ Form input parameters for configuring a bundle for deployment.
 <summary>View</summary>
 
 <!-- PARAMS:START -->
+## Properties
 
-**Params coming soon**
+- **`azure_region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
+  - **One of**
+    - East US
+    - North Central US
+    - South Central US
+    - West US
+- **`cidr`** *(string)*: Enter a CIDR IP address range to use for the size of your virtual network. This cannot be changed after the resource is created.
+## Examples
+
+  ```json
+  {
+      "__name": "Small Network (4K IPs)",
+      "cidr": "10.0.0.0/20"
+  }
+  ```
+
+  ```json
+  {
+      "__name": "Large Network (65K IPs)",
+      "cidr": "10.0.0.0/16"
+  }
+  ```
 
 <!-- PARAMS:END -->
 
@@ -62,9 +84,33 @@ Connections from other bundles that this bundle depends on.
 <summary>View</summary>
 
 <!-- CONNECTIONS:START -->
+## Properties
 
-**Connections coming soon**
+- **`azure_service_principal`** *(object)*: . Cannot contain additional properties.
+  - **`data`** *(object)*
+    - **`client_id`** *(string)*: A valid UUID field.
 
+      Examples:
+      ```json
+      "123xyz99-ab34-56cd-e7f8-456abc1q2w3e"
+      ```
+
+    - **`client_secret`** *(string)*
+    - **`subscription_id`** *(string)*: A valid UUID field.
+
+      Examples:
+      ```json
+      "123xyz99-ab34-56cd-e7f8-456abc1q2w3e"
+      ```
+
+    - **`tenant_id`** *(string)*: A valid UUID field.
+
+      Examples:
+      ```json
+      "123xyz99-ab34-56cd-e7f8-456abc1q2w3e"
+      ```
+
+  - **`specs`** *(object)*
 <!-- CONNECTIONS:END -->
 
 </details>
@@ -77,9 +123,44 @@ Resources created by this bundle that can be connected to other bundles.
 <summary>View</summary>
 
 <!-- ARTIFACTS:START -->
+## Properties
 
-**Artifacts coming soon**
+- **`vnet`** *(object)*: . Cannot contain additional properties.
+  - **`data`** *(object)*
+    - **`infrastructure`** *(object)*
+      - **`cidr`** *(string)*
 
+        Examples:
+        ```json
+        "10.100.0.0/16"
+        ```
+
+        ```json
+        "192.24.12.0/22"
+        ```
+
+      - **`default_subnet_id`** *(string)*: Azure Resource ID.
+
+        Examples:
+        ```json
+        "/subscriptions/12345678-1234-1234-abcd-1234567890ab/resourceGroups/resource-group-name/providers/Microsoft.Network/virtualNetworks/network-name"
+        ```
+
+      - **`id`** *(string)*: Azure Resource ID.
+
+        Examples:
+        ```json
+        "/subscriptions/12345678-1234-1234-abcd-1234567890ab/resourceGroups/resource-group-name/providers/Microsoft.Network/virtualNetworks/network-name"
+        ```
+
+  - **`specs`** *(object)*
+    - **`azure`** *(object)*: .
+      - **`region`** *(string)*: Select the Azure region you'd like to provision your resources in.
+        - **One of**
+          - East US
+          - North Central US
+          - South Central US
+          - West US
 <!-- ARTIFACTS:END -->
 
 </details>
