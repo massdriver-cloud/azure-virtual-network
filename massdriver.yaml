@@ -1,7 +1,7 @@
 schema: draft-07
 name: azure-virtual-network
 description: "Azure Virtual Network includes best practice Azure reference architecture for Virtual Networks (VNETs) and subnets."
-ref: github.com/massdriver-cloud/azure-virtual-network
+source_url: github.com/massdriver-cloud/azure-virtual-network
 access: "public"
 type: bundle
 
