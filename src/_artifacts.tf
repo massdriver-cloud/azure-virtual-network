@@ -7,7 +7,7 @@ resource "massdriver_artifact" "vnet" {
       data = {
         infrastructure = {
           id                = azurerm_virtual_network.main.id
-          cidr              = var.cidr
+          cidr              = var.network.cidr
           default_subnet_id = azurerm_subnet.main.id
         }
       }

@@ -56,13 +56,14 @@ Form input parameters for configuring a bundle for deployment.
 <!-- PARAMS:START -->
 ## Properties
 
-- **`azure_region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
-  - **One of**
-    - East US
-    - North Central US
-    - South Central US
-    - West US
-- **`cidr`** *(string)*: Enter a CIDR IP address range to use for the size of your virtual network. This cannot be changed after the resource is created.
+- **`network`** *(object)*
+  - **`cidr`** *(string)*: Enter a CIDR IP address range to use for the size of your virtual network. This cannot be changed after the resource is created.
+  - **`region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
+    - **One of**
+      - East US
+      - North Central US
+      - South Central US
+      - West US
 ## Examples
 
   ```json
