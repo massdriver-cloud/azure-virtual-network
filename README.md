@@ -57,28 +57,9 @@ Form input parameters for configuring a bundle for deployment.
 ## Properties
 
 - **`network`** *(object)*
-  - **`cidr`** *(string)*: Enter a CIDR IP address range to use for the size of your virtual network. This cannot be changed after the resource is created.
+  - **`automatic`** *(boolean)*: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR. Default: `True`.
   - **`region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
-    - **One of**
-      - East US
-      - North Central US
-      - South Central US
-      - West US
 ## Examples
-
-  ```json
-  {
-      "__name": "Small Network (4K IPs)",
-      "cidr": "10.0.0.0/20"
-  }
-  ```
-
-  ```json
-  {
-      "__name": "Large Network (65K IPs)",
-      "cidr": "10.0.0.0/16"
-  }
-  ```
 
 <!-- PARAMS:END -->
 
@@ -164,11 +145,6 @@ Resources created by this bundle that can be connected to other bundles.
   - **`specs`** *(object)*
     - **`azure`** *(object)*: .
       - **`region`** *(string)*: Select the Azure region you'd like to provision your resources in.
-        - **One of**
-          - East US
-          - North Central US
-          - South Central US
-          - West US
 <!-- ARTIFACTS:END -->
 
 </details>
