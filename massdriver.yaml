@@ -6,11 +6,7 @@ access: "public"
 type: bundle
 
 params:
-  examples:
-    - __name: Small Network (4K IPs)
-      cidr: "10.0.0.0/20"
-    - __name: Large Network (65K IPs)
-      cidr: "10.0.0.0/16"
+  examples: []
   required:
     - network
   properties:
@@ -19,20 +15,37 @@ params:
         type: object
         required:
           - azure_region
-          - cidr
+          - auto
         properties:
           region:
             description: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
             $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/azure-region.json
             $md.immutable: true
-          cidr:
-            title: "Virtual Network CIDR"
-            type: string
-            description: Enter a CIDR IP address range to use for the size of your virtual network. This cannot be changed after the resource is created.
+          auto:
+            title: Automatic CIDR Selection
+            type: boolean
+            description: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR.
+            default: true
             $md.immutable: true
-            pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}(?:\/(1[6-9]|20))?$
-            message:
-              pattern: "Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 8 and 24"
+        dependencies:
+          auto:
+            oneOf:
+            - properties:
+                auto:
+                  const: true
+            - properties:
+                auto:
+                  const: false
+                cidr:
+                  title: Subnet CIDR
+                  type: string
+                  description: Specify a /28 CIDR range within your vnet to create subnet for the database. The subnet CIDR cannot be changed after creation.
+                  $md.immutable: true
+                  pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}\/28$
+                  message:
+                    pattern: "Must be a /28 range from within the VNet CIDR"
+              required:
+              - cidr
 
 connections:
   required:
@@ -54,6 +67,6 @@ ui:
     - "*"
   network:
     ui:order:
-      - azure_region
-      - cidr
+      - region
+      - auto
       - "*"

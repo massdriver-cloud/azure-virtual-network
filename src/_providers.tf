@@ -9,6 +9,12 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0"
     }
+    jq = {
+      source = "massdriver-cloud/jq"
+    }
+    utility = {
+      source  = "massdriver-cloud/utility"
+    }
   }
 }
 
