@@ -9,11 +9,23 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0"
     }
+    jq = {
+      source  = "massdriver-cloud/jq"
+      version = "~> 0.0"
+    }
+    utility = {
+      source  = "massdriver-cloud/utility"
+      version = "~> 0.0"
+    }
   }
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 
   client_id       = var.azure_service_principal.data.client_id
   tenant_id       = var.azure_service_principal.data.tenant_id
