@@ -1,38 +1,7 @@
 locals {
-  json_map = jsondecode(data.http.token.response_body)
-  token    = local.json_map["access_token"]
-  cidr     = var.network.auto ? utility_available_cidr.cidr.result : var.network.cidr
-}
-
-data "http" "token" {
-  url    = "https://login.microsoftonline.com/${var.azure_service_principal.data.tenant_id}/oauth2/token"
-  method = "POST"
-
-  request_body = "grant_type=Client_Credentials&client_id=${var.azure_service_principal.data.client_id}&client_secret=${var.azure_service_principal.data.client_secret}&resource=https://management.azure.com/"
-}
-
-data "http" "list" {
-  url    = "https://management.azure.com/subscriptions/${var.azure_service_principal.data.subscription_id}/providers/Microsoft.Network/virtualNetworks?api-version=2022-07-01"
-  method = "GET"
-
-  request_headers = {
-    "Authorization" = "Bearer ${local.token}"
-  }
-}
-
-data "jq_query" "list" {
-  data  = data.http.list.response_body
-  query = "[.value[].properties.addressSpace.addressPrefixes[]]"
-}
-
-resource "utility_available_cidr" "cidr" {
-  from_cidrs = ["10.0.0.0/8", "172.16.0.0/20", "192.168.0.0/16"]
-  used_cidrs = jsondecode(data.jq_query.list.result)
-  mask       = 16
-}
-
-output "list" {
-  value = utility_available_cidr.cidr.result
+  token_response = var.network.automatic ? jsondecode(data.http.token.0.response_body) : {}
+  token          = lookup(local.token_response, "access_token", "")
+  cidr           = var.network.automatic ? utility_available_cidr.cidr.0.result : var.network.cidr
 }
 
 resource "azurerm_resource_group" "main" {

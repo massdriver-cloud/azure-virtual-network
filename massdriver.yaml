@@ -3,7 +3,7 @@ name: azure-virtual-network
 description: "Azure Virtual Network includes best practice Azure reference architecture for Virtual Networks (VNETs) and subnets."
 source_url: github.com/massdriver-cloud/azure-virtual-network
 access: "public"
-type: bundle
+type: infrastructure
 
 params:
   examples: []
@@ -15,35 +15,62 @@ params:
         type: object
         required:
           - azure_region
-          - auto
+          - automatic
         properties:
           region:
             description: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
             $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/azure-region.json
             $md.immutable: true
-          auto:
+          automatic:
             title: Automatic CIDR Selection
             type: boolean
             description: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR.
             default: true
             $md.immutable: true
         dependencies:
-          auto:
+          automatic:
             oneOf:
             - properties:
-                auto:
+                automatic:
                   const: true
+                mask:
+                  title: VNet Size
+                  type: integer
+                  description: Select the size of the virtual network in IP addresses
+                  $md.immutable: true
+                  default: 16
+                  oneOf:
+                    - const: 16
+                      title: 65k IP Addresses
+                    - const: 17
+                      title: 32k IP Addresses
+                    - const: 18
+                      title: 16k IP Addresses
+                    - const: 19
+                      title: 8k IP Addresses
+                    - const: 20
+                      title: 4k IP Addresses
+                    - const: 21
+                      title: 2k IP Addresses
+                    - const: 22
+                      title: 1k IP Addresses
+                    - const: 23
+                      title: 512 IP Addresses
+                    - const: 24
+                      title: 256 IP Addresses
+              required:
+              - mask
             - properties:
-                auto:
+                automatic:
                   const: false
                 cidr:
-                  title: Subnet CIDR
+                  title: VNet CIDR Range
                   type: string
-                  description: Specify a /28 CIDR range within your vnet to create subnet for the database. The subnet CIDR cannot be changed after creation.
+                  description: Enter a CIDR range to use for the virtual network
                   $md.immutable: true
-                  pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}\/28$
+                  pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}(?:\/([8-9]|1[0-9]|2[0-4]))?$
                   message:
-                    pattern: "Must be a /28 range from within the VNet CIDR"
+                    pattern: "Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 8 and 24"
               required:
               - cidr
 
@@ -68,5 +95,5 @@ ui:
   network:
     ui:order:
       - region
-      - auto
+      - automatic
       - "*"
