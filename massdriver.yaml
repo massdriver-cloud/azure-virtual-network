@@ -14,7 +14,7 @@ params:
         title: Network
         type: object
         required:
-          - azure_region
+          - region
           - automatic
         properties:
           region:
@@ -97,3 +97,6 @@ ui:
       - region
       - automatic
       - "*"
+    region:
+      ui:field: supportedCloudLocationsDropdown
+      cloudService: azure
