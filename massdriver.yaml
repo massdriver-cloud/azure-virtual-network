@@ -47,3 +47,6 @@ ui:
     - azure_region
     - cidr
     - "*"
+  azure_region:
+    ui:field: supportedCloudLocationsDropdown
+    cloudService: azure
