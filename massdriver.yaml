@@ -95,10 +95,10 @@ connections:
 
 artifacts:
   required:
-    # I know this is a breaking-change
+    # I know this is a breaking-change, thoughts are this is the last time
     - virtual_network
   properties:
-    vnet:
+    virtual_network:
       $ref: massdriver/azure-virtual-network
 
 ui:

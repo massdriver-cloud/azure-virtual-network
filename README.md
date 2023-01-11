@@ -112,7 +112,7 @@ Resources created by this bundle that can be connected to other bundles.
 <!-- ARTIFACTS:START -->
 ## Properties
 
-- **`vnet`** *(object)*: . Cannot contain additional properties.
+- **`virtual_network`** *(object)*: . Cannot contain additional properties.
   - **`data`** *(object)*
     - **`infrastructure`** *(object)*
       - **`cidr`** *(string)*
