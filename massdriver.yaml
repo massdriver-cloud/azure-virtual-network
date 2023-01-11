@@ -8,71 +8,83 @@ type: infrastructure
 params:
   examples: []
   required:
-    - network
+    - region
+    # - network
   properties:
-    network:
-        title: Network
-        type: object
-        required:
-          - region
-          - automatic
-        properties:
-          region:
-            description: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
-            $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/azure-region.json
-            $md.immutable: true
-          automatic:
-            title: Automatic CIDR Selection
-            type: boolean
-            description: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR.
-            default: true
-            $md.immutable: true
-        dependencies:
-          automatic:
-            oneOf:
-            - properties:
-                automatic:
-                  const: true
-                mask:
-                  title: VNet Size
-                  type: integer
-                  description: Select the size of the virtual network in IP addresses
-                  $md.immutable: true
-                  default: 16
-                  oneOf:
-                    - const: 16
-                      title: 65k IP Addresses
-                    - const: 17
-                      title: 32k IP Addresses
-                    - const: 18
-                      title: 16k IP Addresses
-                    - const: 19
-                      title: 8k IP Addresses
-                    - const: 20
-                      title: 4k IP Addresses
-                    - const: 21
-                      title: 2k IP Addresses
-                    - const: 22
-                      title: 1k IP Addresses
-                    - const: 23
-                      title: 512 IP Addresses
-                    - const: 24
-                      title: 256 IP Addresses
-              required:
-              - mask
-            - properties:
-                automatic:
-                  const: false
-                cidr:
-                  title: VNet CIDR Range
-                  type: string
-                  description: Enter a CIDR range to use for the virtual network
-                  $md.immutable: true
-                  pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}(?:\/([8-9]|1[0-9]|2[0-4]))?$
-                  message:
-                    pattern: "Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 8 and 24"
-              required:
-              - cidr
+    # moved this here, another breaking change. Move it back if it's an issue
+    # thoughts:
+    # the structure heavily influenes the DSL of the provisioner runtime
+    # with this kind of stuff I think flatter usually leads to happier lives, easier to understand TF, more consistent TF
+    # And we should be able map these properties to any UI column / collection, that shouldn't drive this schema IMO
+    region:
+      title: Region
+      description: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
+      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/azure-region.json
+      $md.immutable: true
+      # 1. lets talk defaults on Friday. Things like, "all bundles should have at least one example that you can deploy w/o putting in anything".
+      # 2. ATM, purposefully different than the subnet, to validate
+      default: westus
+    # network:
+    #     title: Network
+    #     type: object
+    #     required:
+    #       - automatic
+    #     properties:
+    #       # If auto is default, and not-auto is scary, why let our users scare or potentially hurt themselves?
+    #       # What if we set this to auto as a default at the module layer.
+    #       # That makes the UI friendlier _and_ the module.
+    #       automatic:
+    #         title: Automatic CIDR Selection
+    #         type: boolean
+    #         description: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR.
+    #         default: true
+    #         $md.immutable: true
+    #     dependencies:
+    #       automatic:
+    #         oneOf:
+    #         - properties:
+    #             automatic:
+    #               const: true
+    #             mask:
+    #               title: VNet Size
+    #               type: integer
+    #               description: Select the size of the virtual network in IP addresses
+    #               $md.immutable: true
+    #               default: 16
+    #               oneOf:
+    #                 - const: 16
+    #                   title: 65k IP Addresses
+    #                 - const: 17
+    #                   title: 32k IP Addresses
+    #                 - const: 18
+    #                   title: 16k IP Addresses
+    #                 - const: 19
+    #                   title: 8k IP Addresses
+    #                 - const: 20
+    #                   title: 4k IP Addresses
+    #                 - const: 21
+    #                   title: 2k IP Addresses
+    #                 - const: 22
+    #                   title: 1k IP Addresses
+    #                 - const: 23
+    #                   title: 512 IP Addresses
+    #                 - const: 24
+    #                   title: 256 IP Addresses
+    #           required:
+    #           - mask
+    #         - properties:
+    #             automatic:
+    #               const: false
+    #             cidr:
+    #               title: VNet CIDR Range
+    #               type: string
+    #               description: Enter a CIDR range to use for the virtual network
+    #               $md.immutable: true
+    #               pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}(?:\/([8-9]|1[0-9]|2[0-4]))?$
+    #               message:
+    #                 pattern: "Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 8 and 24"
+    #           required:
+    #           - cidr
 
 connections:
   required:
@@ -83,7 +95,8 @@ connections:
 
 artifacts:
   required:
-    - vnet
+    # I know this is a breaking-change
+    - virtual_network
   properties:
     vnet:
       $ref: massdriver/azure-virtual-network

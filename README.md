@@ -56,9 +56,7 @@ Form input parameters for configuring a bundle for deployment.
 <!-- PARAMS:START -->
 ## Properties
 
-- **`network`** *(object)*
-  - **`automatic`** *(boolean)*: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR. Default: `True`.
-  - **`region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
+- **`region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created. Default: `westus`.
 ## Examples
 
 <!-- PARAMS:END -->

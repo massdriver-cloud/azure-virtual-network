@@ -23,6 +23,7 @@ terraform {
 provider "azurerm" {
   features {
     resource_group {
+      # buyers beware IMHO, I haven't needed it yet
       prevent_deletion_if_contains_resources = false
     }
   }
