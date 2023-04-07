@@ -11,12 +11,12 @@ This template also provides reviewers information about the bundle without feeli
 
 ### What type of PR is this? (check all applicable):
 
-- [] Refactor
-- [] Feature
-- [] Bug Fix
-- [] Optimization
-- [] Documentation Update
-- [] Other (describe: )
+- [ ] Refactor
+- [ ] Feature
+- [ ] Bug Fix
+- [ ] Optimization
+- [ ] Documentation Update
+- [ ] Other (describe: )
 
 ### Tell us about the change being made:
 <!-- Tell us about what the change will do and why this change is needed on a Massdriver bundle instead of forking the bundle privately. -->
