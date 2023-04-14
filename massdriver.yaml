@@ -6,7 +6,12 @@ access: "public"
 type: infrastructure
 
 params:
-  examples: []
+  examples:
+    - __name: Wizard
+      network:
+        region: eastus
+        automatic: true
+        mask: 24
   required:
     - network
   properties:
