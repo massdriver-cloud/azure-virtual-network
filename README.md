@@ -61,6 +61,17 @@ Form input parameters for configuring a bundle for deployment.
   - **`region`** *(string)*: Select the Azure region you'd like to provision your resources in. This cannot be changed after the resource is created.
 ## Examples
 
+  ```json
+  {
+      "__name": "Wizard",
+      "network": {
+          "automatic": true,
+          "mask": 24,
+          "region": "eastus"
+      }
+  }
+  ```
+
 <!-- PARAMS:END -->
 
 </details>
