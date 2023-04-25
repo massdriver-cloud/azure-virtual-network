@@ -66,7 +66,7 @@ Form input parameters for configuring a bundle for deployment.
       "__name": "Wizard",
       "network": {
           "automatic": true,
-          "mask": 24,
+          "mask": 20,
           "region": "eastus"
       }
   }
