@@ -112,6 +112,8 @@ params:
         region: eastus
         automatic: true
         mask: 20
+      monitoring:
+        mode: AUTOMATED
   required:
     - network
     - monitoring
