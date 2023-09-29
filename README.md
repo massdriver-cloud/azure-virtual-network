@@ -70,6 +70,9 @@ Form input parameters for configuring a bundle for deployment.
   ```json
   {
       "__name": "Wizard",
+      "monitoring": {
+          "mode": "AUTOMATED"
+      },
       "network": {
           "automatic": true,
           "mask": 20,

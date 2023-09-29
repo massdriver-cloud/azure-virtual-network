@@ -70,15 +70,11 @@ MonitorAlarmMetric: &monitor_alarm_metric
           const: P1D
     aggregation:
       title: Aggregation
-      description: The aggregation type of the alarm.
+      description: The aggregation type of the alarm. (DDoS attack metric only uses maximum.)
       type: string
-      default: Average
+      default: Maximum
       enum:
-        - Average
-        - Count
-        - Minimum
         - Maximum
-        - Total
     operator:
       title: Operator
       description: The operator used to compare the metric value to the threshold.
