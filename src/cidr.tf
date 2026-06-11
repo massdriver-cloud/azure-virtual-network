@@ -1,14 +1,14 @@
 data "http" "token" {
   count  = var.network.automatic ? 1 : 0
-  url    = "https://login.microsoftonline.com/${var.azure_service_principal.data.tenant_id}/oauth2/token"
+  url    = "https://login.microsoftonline.com/${var.azure_service_principal.tenant_id}/oauth2/token"
   method = "POST"
 
-  request_body = "grant_type=Client_Credentials&client_id=${var.azure_service_principal.data.client_id}&client_secret=${var.azure_service_principal.data.client_secret}&resource=https://management.azure.com/"
+  request_body = "grant_type=Client_Credentials&client_id=${var.azure_service_principal.client_id}&client_secret=${var.azure_service_principal.client_secret}&resource=https://management.azure.com/"
 }
 
 data "http" "vnets" {
   count  = var.network.automatic ? 1 : 0
-  url    = "https://management.azure.com/subscriptions/${var.azure_service_principal.data.subscription_id}/providers/Microsoft.Network/virtualNetworks?api-version=2022-07-01"
+  url    = "https://management.azure.com/subscriptions/${var.azure_service_principal.subscription_id}/providers/Microsoft.Network/virtualNetworks?api-version=2022-07-01"
   method = "GET"
 
   request_headers = {
