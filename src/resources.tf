@@ -1,7 +1,7 @@
-resource "massdriver_artifact" "vnet" {
+resource "massdriver_resource" "vnet" {
   field    = "vnet"
   name     = "Virtual Network ${var.md_metadata.name_prefix} (${azurerm_virtual_network.main.id})"
-  artifact = jsonencode(
+  resource = jsonencode(
     {
       infrastructure = {
         id                = azurerm_virtual_network.main.id
